@@ -53,6 +53,7 @@ Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg))
 (/usr/share/texlive/texmf-dist/tex/latex/titlesec/titletoc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty)))
@@ -267,192 +268,58 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg)
 
 Package natbib Warning: Citation `li_2024_understanding' on page 1 undefined on
- input line 50.
+ input line 52.
 
 
 Package natbib Warning: Citation `zhong_2024_diffusion' on page 1 undefined on 
-input line 57.
+input line 59.
 
 
 Package natbib Warning: Citation `li_2024_understanding' on page 1 undefined on
- input line 59.
+ input line 61.
 
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-
 dist/fonts/enc/dvips/base/8r.enc}]
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
 
 Package natbib Warning: Citation `zhong_2024_diffusion' on page 2 undefined on 
-input line 80.
+input line 82.
 
 
 Package natbib Warning: Citation `go_2023_addressing' on page 2 undefined on in
-put line 80.
+put line 82.
 
 
 Package natbib Warning: Citation `li_2024_understanding' on page 2 undefined on
- input line 84.
+ input line 86.
 
 
 Package natbib Warning: Citation `hoogeboom_2022_blurring' on page 2 undefined 
-on input line 84.
+on input line 86.
 
 
 Package natbib Warning: Citation `bansal_2022_cold' on page 2 undefined on inpu
-t line 84.
+t line 86.
 
 
 Package natbib Warning: Citation `xiao_2022_densepure' on page 2 undefined on i
-nput line 86.
+nput line 88.
 
 
 Package natbib Warning: Citation `sastry_2023_diffaug' on page 2 undefined on i
-nput line 86.
+nput line 88.
 
 
 Package natbib Warning: Citation `lee_2022_convergence' on page 2 undefined on 
-input line 88.
+input line 90.
 
 [2]
-! Missing number, treated as zero.
-<to be read again> 
-                   \c@* 
-l.118 \begin{enumerate}[label=(\alph*
-                                     )]
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.119   \item \emph
-                   {Moment estimation.} Images are flattened; $\hat\mu$ and ...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.119   \item \emph
-                   {Moment estimation.} Images are flattened; $\hat\mu$ and ...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.119   \item \emph
-                   {Moment estimation.} Images are flattened; $\hat\mu$ and ...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.120   \item \emph
-                   {Basis projection.} $\alpha \leftarrow U^{\top}\hat\Sigma...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.120   \item \emph
-                   {Basis projection.} $\alpha \leftarrow U^{\top}\hat\Sigma...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.120   \item \emph
-                   {Basis projection.} $\alpha \leftarrow U^{\top}\hat\Sigma...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.121   \item \emph
-                   {Wiener update.} For each $\sigma$ compute $\hat D_{\sigm...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.121   \item \emph
-                   {Wiener update.} For each $\sigma$ compute $\hat D_{\sigm...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.121   \item \emph
-                   {Wiener update.} For each $\sigma$ compute $\hat D_{\sigm...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.122   \item \emph
-                   {Hot-swap.} Replace $(\mu_{\sigma},D_{\sigma})$ by $(\hat...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.122   \item \emph
-                   {Hot-swap.} Replace $(\mu_{\sigma},D_{\sigma})$ by $(\hat...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.122   \item \emph
-                   {Hot-swap.} Replace $(\mu_{\sigma},D_{\sigma})$ by $(\hat...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.123 \end{enumerate}
-                     
 
 Package natbib Warning: Citation `bansal_2022_cold' on page 3 undefined on inpu
-t line 129.
+t line 131.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd) [3]
-Underfull \hbox (badness 10000) in paragraph at lines 149--150
+Underfull \hbox (badness 10000) in paragraph at lines 151--152
 \T1/ptm/m/n/10 (+20) Executed once on a sin-gle NVIDIA A6000 for SD-XL-base-1.0
 , pro-duc-ing
 
@@ -460,7 +327,7 @@ Underfull \vbox (badness 3536) has occurred while \output is active [4]
 [5]
 
 Package natbib Warning: Citation `airas2025' on page 6 undefined on input line 
-230.
+232.
 
 No file paper.bbl.
 
@@ -488,7 +355,7 @@ pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (6 pages, 158861 bytes).
+Output written on paper.pdf (6 pages, 158623 bytes).
 Transcript written on paper.log.
 This is BibTeX, Version 0.99d (TeX Live 2023/Debian)
 The top-level auxiliary file: paper.aux
@@ -565,6 +432,7 @@ Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg))
 (/usr/share/texlive/texmf-dist/tex/latex/titlesec/titletoc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty)))
@@ -780,192 +648,58 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg)
 
 Package natbib Warning: Citation `li_2024_understanding' on page 1 undefined on
- input line 50.
+ input line 52.
 
 
 Package natbib Warning: Citation `zhong_2024_diffusion' on page 1 undefined on 
-input line 57.
+input line 59.
 
 
 Package natbib Warning: Citation `li_2024_understanding' on page 1 undefined on
- input line 59.
+ input line 61.
 
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-
 dist/fonts/enc/dvips/base/8r.enc}]
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
 
 Package natbib Warning: Citation `zhong_2024_diffusion' on page 2 undefined on 
-input line 80.
+input line 82.
 
 
 Package natbib Warning: Citation `go_2023_addressing' on page 2 undefined on in
-put line 80.
+put line 82.
 
 
 Package natbib Warning: Citation `li_2024_understanding' on page 2 undefined on
- input line 84.
+ input line 86.
 
 
 Package natbib Warning: Citation `hoogeboom_2022_blurring' on page 2 undefined 
-on input line 84.
+on input line 86.
 
 
 Package natbib Warning: Citation `bansal_2022_cold' on page 2 undefined on inpu
-t line 84.
+t line 86.
 
 
 Package natbib Warning: Citation `xiao_2022_densepure' on page 2 undefined on i
-nput line 86.
+nput line 88.
 
 
 Package natbib Warning: Citation `sastry_2023_diffaug' on page 2 undefined on i
-nput line 86.
+nput line 88.
 
 
 Package natbib Warning: Citation `lee_2022_convergence' on page 2 undefined on 
-input line 88.
+input line 90.
 
 [2]
-! Missing number, treated as zero.
-<to be read again> 
-                   \c@* 
-l.118 \begin{enumerate}[label=(\alph*
-                                     )]
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.119   \item \emph
-                   {Moment estimation.} Images are flattened; $\hat\mu$ and ...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.119   \item \emph
-                   {Moment estimation.} Images are flattened; $\hat\mu$ and ...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.119   \item \emph
-                   {Moment estimation.} Images are flattened; $\hat\mu$ and ...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.120   \item \emph
-                   {Basis projection.} $\alpha \leftarrow U^{\top}\hat\Sigma...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.120   \item \emph
-                   {Basis projection.} $\alpha \leftarrow U^{\top}\hat\Sigma...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.120   \item \emph
-                   {Basis projection.} $\alpha \leftarrow U^{\top}\hat\Sigma...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.121   \item \emph
-                   {Wiener update.} For each $\sigma$ compute $\hat D_{\sigm...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.121   \item \emph
-                   {Wiener update.} For each $\sigma$ compute $\hat D_{\sigm...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.121   \item \emph
-                   {Wiener update.} For each $\sigma$ compute $\hat D_{\sigm...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.122   \item \emph
-                   {Hot-swap.} Replace $(\mu_{\sigma},D_{\sigma})$ by $(\hat...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.122   \item \emph
-                   {Hot-swap.} Replace $(\mu_{\sigma},D_{\sigma})$ by $(\hat...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.122   \item \emph
-                   {Hot-swap.} Replace $(\mu_{\sigma},D_{\sigma})$ by $(\hat...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.123 \end{enumerate}
-                     
 
 Package natbib Warning: Citation `bansal_2022_cold' on page 3 undefined on inpu
-t line 129.
+t line 131.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd) [3]
-Underfull \hbox (badness 10000) in paragraph at lines 149--150
+Underfull \hbox (badness 10000) in paragraph at lines 151--152
 \T1/ptm/m/n/10 (+20) Executed once on a sin-gle NVIDIA A6000 for SD-XL-base-1.0
 , pro-duc-ing
 
@@ -973,7 +707,7 @@ Underfull \vbox (badness 3536) has occurred while \output is active [4]
 [5]
 
 Package natbib Warning: Citation `airas2025' on page 6 undefined on input line 
-230.
+232.
 
 (./paper.bbl)
 
@@ -997,7 +731,7 @@ pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (6 pages, 165978 bytes).
+Output written on paper.pdf (6 pages, 165744 bytes).
 Transcript written on paper.log.
 This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex)
  restricted \write18 enabled.
@@ -1054,6 +788,7 @@ Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/microtype.cfg))
 (/usr/share/texlive/texmf-dist/tex/latex/titlesec/titletoc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty)
 (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty)))
@@ -1269,148 +1004,15 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg) [1{/var/lib/texm
 f/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/enc/d
 vips/base/8r.enc}] (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd)
-[2]
-! Missing number, treated as zero.
-<to be read again> 
-                   \c@* 
-l.118 \begin{enumerate}[label=(\alph*
-                                     )]
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.119   \item \emph
-                   {Moment estimation.} Images are flattened; $\hat\mu$ and ...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.119   \item \emph
-                   {Moment estimation.} Images are flattened; $\hat\mu$ and ...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.119   \item \emph
-                   {Moment estimation.} Images are flattened; $\hat\mu$ and ...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.120   \item \emph
-                   {Basis projection.} $\alpha \leftarrow U^{\top}\hat\Sigma...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.120   \item \emph
-                   {Basis projection.} $\alpha \leftarrow U^{\top}\hat\Sigma...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.120   \item \emph
-                   {Basis projection.} $\alpha \leftarrow U^{\top}\hat\Sigma...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.121   \item \emph
-                   {Wiener update.} For each $\sigma$ compute $\hat D_{\sigm...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.121   \item \emph
-                   {Wiener update.} For each $\sigma$ compute $\hat D_{\sigm...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.121   \item \emph
-                   {Wiener update.} For each $\sigma$ compute $\hat D_{\sigm...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.122   \item \emph
-                   {Hot-swap.} Replace $(\mu_{\sigma},D_{\sigma})$ by $(\hat...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.122   \item \emph
-                   {Hot-swap.} Replace $(\mu_{\sigma},D_{\sigma})$ by $(\hat...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.122   \item \emph
-                   {Hot-swap.} Replace $(\mu_{\sigma},D_{\sigma})$ by $(\hat...
-
-
-! LaTeX Error: Something's wrong--perhaps a missing \item.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.123 \end{enumerate}
-                     
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd) [3]
-Underfull \hbox (badness 10000) in paragraph at lines 149--150
+[2] (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd) [3]
+Underfull \hbox (badness 10000) in paragraph at lines 151--152
 \T1/ptm/m/n/10 (+20) Executed once on a sin-gle NVIDIA A6000 for SD-XL-base-1.0
 , pro-duc-ing
+[4] [5] (./paper.bbl) [6] (./paper.aux)
 
-Underfull \vbox (badness 3536) has occurred while \output is active [4]
-[5] (./paper.bbl) [6] (./paper.aux) )
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
 (see the transcript file for additional information)</usr/share/texlive/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/ty
@@ -1423,5 +1025,5 @@ pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/urw/times/utmri8a.pfb>
-Output written on paper.pdf (6 pages, 166822 bytes).
+Output written on paper.pdf (6 pages, 166581 bytes).
 Transcript written on paper.log.
