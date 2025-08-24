@@ -6,5 +6,52 @@
     "diffusion transfer learning",
     "diffusion cross domain",
     "diffusion robustness"
+  ],
+  "research_study_list": [
+    {
+      "title": "Cold Diffusion: Inverting Arbitrary Image Transforms Without Noise"
+    },
+    {
+      "title": "Understanding Generalizability of Diffusion Models Requires Rethinking the Hidden Gaussian Structure"
+    },
+    {
+      "title": "Blurring Diffusion Models"
+    },
+    {
+      "title": "Cold Diffusion: Inverting Arbitrary Image Transforms Without Noise"
+    },
+    {
+      "title": "Diffusion Models for Multi-Task Generative Modeling"
+    },
+    {
+      "title": "Understanding Generalizability of Diffusion Models Requires Rethinking the Hidden Gaussian Structure"
+    },
+    {
+      "title": "Diffusion Tuning: Transferring Diffusion Models via Chain of Forgetting"
+    },
+    {
+      "title": "Bridging Data Gaps in Diffusion Models with Adversarial Noise-Based Transfer Learning"
+    },
+    {
+      "title": "Addressing Negative Transfer in Diffusion Models"
+    },
+    {
+      "title": "Learning Diffusion Bridges on Constrained Domains"
+    },
+    {
+      "title": "Learning Diffusion Bridges on Constrained Domains"
+    },
+    {
+      "title": "Text-Image Alignment for Diffusion-Based Perception"
+    },
+    {
+      "title": "DensePure: Understanding Diffusion Models for Adversarial Robustness"
+    },
+    {
+      "title": "DiffHammer: Rethinking the Robustness of Diffusion-Based Adversarial Purification"
+    },
+    {
+      "title": "DiffAug: A Diffuse-and-Denoise Augmentation for Training Robust Classifiers"
+    }
   ]
 }
