@@ -5,3 +5,381 @@
   publisher = {GitHub},
   url       = {https://github.com/airas-org/airas}
 }
+
+% ===========================================
+% REQUIRED CITATIONS
+% These papers must be cited in the manuscript
+% ===========================================
+
+@article{author_year_bridging,
+ title = {Bridging Data Gaps in Diffusion Models with Adversarial Noise-Based Transfer Learning}
+}
+
+@article{author_year_diffhammer,
+ title = {DiffHammer: Rethinking the Robustness of Diffusion-Based Adversarial Purification}
+}
+
+@article{author_year_diffusion,
+ title = {Diffusion Models for Multi-Task Generative Modeling}
+}
+
+@article{author_year_learning,
+ title = {Learning Diffusion Bridges on Constrained Domains}
+}
+
+@article{author_year_learning,
+ title = {Learning Diffusion Bridges on Constrained Domains}
+}
+
+@article{bansal_2022_cold,
+ abstract = {Standard diffusion models involve an image transform -- adding Gaussian noise
+-- and an image restoration operator that inverts this degradation. We observe
+that the generative behavior of diffusion models is not strongly dependent on
+the choice of image degradation, and in fact an entire family of generative
+models can be constructed by varying this choice. Even when using completely
+deterministic degradations (e.g., blur, masking, and more), the training and
+test-time update rules that underlie diffusion models can be easily generalized
+to create generative models. The success of these fully deterministic models
+calls into question the community's understanding of diffusion models, which
+relies on noise in either gradient Langevin dynamics or variational inference,
+and paves the way for generalized diffusion models that invert arbitrary
+processes. Our code is available at
+https://github.com/arpitbansal297/Cold-Diffusion-Models},
+ arxiv_url = {https://arxiv.org/pdf/2208.09392v1.pdf},
+ author = {Arpit Bansal and Eitan Borgnia and Hong-Min Chu and Jie S. Li and Hamid Kazemi and Furong Huang and Micah Goldblum and Jonas Geiping and Tom Goldstein},
+ title = {Cold Diffusion: Inverting Arbitrary Image Transforms Without Noise},
+ year = {2022}
+}
+
+@article{bansal_2022_cold,
+ abstract = {Standard diffusion models involve an image transform -- adding Gaussian noise
+-- and an image restoration operator that inverts this degradation. We observe
+that the generative behavior of diffusion models is not strongly dependent on
+the choice of image degradation, and in fact an entire family of generative
+models can be constructed by varying this choice. Even when using completely
+deterministic degradations (e.g., blur, masking, and more), the training and
+test-time update rules that underlie diffusion models can be easily generalized
+to create generative models. The success of these fully deterministic models
+calls into question the community's understanding of diffusion models, which
+relies on noise in either gradient Langevin dynamics or variational inference,
+and paves the way for generalized diffusion models that invert arbitrary
+processes. Our code is available at
+https://github.com/arpitbansal297/Cold-Diffusion-Models},
+ arxiv_url = {https://arxiv.org/pdf/2208.09392v1.pdf},
+ author = {Arpit Bansal and Eitan Borgnia and Hong-Min Chu and Jie S. Li and Hamid Kazemi and Furong Huang and Micah Goldblum and Jonas Geiping and Tom Goldstein},
+ title = {Cold Diffusion: Inverting Arbitrary Image Transforms Without Noise},
+ year = {2022}
+}
+
+@article{go_2023_addressing,
+ abstract = {Diffusion-based generative models have achieved remarkable success in various
+domains. It trains a shared model on denoising tasks that encompass different
+noise levels simultaneously, representing a form of multi-task learning (MTL).
+However, analyzing and improving diffusion models from an MTL perspective
+remains under-explored. In particular, MTL can sometimes lead to the well-known
+phenomenon of negative transfer, which results in the performance degradation
+of certain tasks due to conflicts between tasks. In this paper, we first aim to
+analyze diffusion training from an MTL standpoint, presenting two key
+observations: (O1) the task affinity between denoising tasks diminishes as the
+gap between noise levels widens, and (O2) negative transfer can arise even in
+diffusion training. Building upon these observations, we aim to enhance
+diffusion training by mitigating negative transfer. To achieve this, we propose
+leveraging existing MTL methods, but the presence of a huge number of denoising
+tasks makes this computationally expensive to calculate the necessary per-task
+loss or gradient. To address this challenge, we propose clustering the
+denoising tasks into small task clusters and applying MTL methods to them.
+Specifically, based on (O2), we employ interval clustering to enforce temporal
+proximity among denoising tasks within clusters. We show that interval
+clustering can be solved using dynamic programming, utilizing signal-to-noise
+ratio, timestep, and task affinity for clustering objectives. Through this, our
+approach addresses the issue of negative transfer in diffusion models by
+allowing for efficient computation of MTL methods. We validate the efficacy of
+proposed clustering and its integration with MTL methods through various
+experiments, demonstrating 1) improved generation quality and 2) faster
+training convergence of diffusion models.},
+ arxiv_url = {https://arxiv.org/pdf/2306.00354v3.pdf},
+ author = {Hyojun Go and JinYoung Kim and Yunsung Lee and Seunghyun Lee and Shinhyeok Oh and Hyeongdon Moon and Seungtaek Choi},
+ github_url = {https://github.com/median-research-group/LibMTL},
+ title = {Addressing Negative Transfer in Diffusion Models},
+ year = {2023}
+}
+
+@article{hoogeboom_2022_blurring,
+ abstract = {Recently, Rissanen et al., (2022) have presented a new type of diffusion
+process for generative modeling based on heat dissipation, or blurring, as an
+alternative to isotropic Gaussian diffusion. Here, we show that blurring can
+equivalently be defined through a Gaussian diffusion process with non-isotropic
+noise. In making this connection, we bridge the gap between inverse heat
+dissipation and denoising diffusion, and we shed light on the inductive bias
+that results from this modeling choice. Finally, we propose a generalized class
+of diffusion models that offers the best of both standard Gaussian denoising
+diffusion and inverse heat dissipation, which we call Blurring Diffusion
+Models.},
+ arxiv_url = {https://arxiv.org/pdf/2209.05557v3.pdf},
+ author = {Emiel Hoogeboom and Tim Salimans},
+ github_url = {https://github.com/w86763777/pytorch-ddpm},
+ title = {Blurring Diffusion Models},
+ year = {2022}
+}
+
+@article{kondapaneni_2023_text,
+ abstract = {Diffusion models are generative models with impressive text-to-image
+synthesis capabilities and have spurred a new wave of creative methods for
+classical machine learning tasks. However, the best way to harness the
+perceptual knowledge of these generative models for visual tasks is still an
+open question. Specifically, it is unclear how to use the prompting interface
+when applying diffusion backbones to vision tasks. We find that automatically
+generated captions can improve text-image alignment and significantly enhance a
+model's cross-attention maps, leading to better perceptual performance. Our
+approach improves upon the current state-of-the-art (SOTA) in diffusion-based
+semantic segmentation on ADE20K and the current overall SOTA for depth
+estimation on NYUv2. Furthermore, our method generalizes to the cross-domain
+setting. We use model personalization and caption modifications to align our
+model to the target domain and find improvements over unaligned baselines. Our
+cross-domain object detection model, trained on Pascal VOC, achieves SOTA
+results on Watercolor2K. Our cross-domain segmentation method, trained on
+Cityscapes, achieves SOTA results on Dark Zurich-val and Nighttime Driving.
+Project page: https://www.vision.caltech.edu/tadp/. Code:
+https://github.com/damaggu/TADP.},
+ arxiv_url = {https://arxiv.org/pdf/2310.00031v3.pdf},
+ author = {Neehar Kondapaneni and Markus Marks and Manuel Knott and Rogerio Guimaraes and Pietro Perona},
+ title = {Text-Image Alignment for Diffusion-Based Perception},
+ year = {2023}
+}
+
+@article{li_2024_understanding,
+ abstract = {In this work, we study the generalizability of diffusion models by looking
+into the hidden properties of the learned score functions, which are
+essentially a series of deep denoisers trained on various noise levels. We
+observe that as diffusion models transition from memorization to
+generalization, their corresponding nonlinear diffusion denoisers exhibit
+increasing linearity. This discovery leads us to investigate the linear
+counterparts of the nonlinear diffusion models, which are a series of linear
+models trained to match the function mappings of the nonlinear diffusion
+denoisers. Surprisingly, these linear denoisers are approximately the optimal
+denoisers for a multivariate Gaussian distribution characterized by the
+empirical mean and covariance of the training dataset. This finding implies
+that diffusion models have the inductive bias towards capturing and utilizing
+the Gaussian structure (covariance information) of the training dataset for
+data generation. We empirically demonstrate that this inductive bias is a
+unique property of diffusion models in the generalization regime, which becomes
+increasingly evident when the model's capacity is relatively small compared to
+the training dataset size. In the case that the model is highly
+overparameterized, this inductive bias emerges during the initial training
+phases before the model fully memorizes its training data. Our study provides
+crucial insights into understanding the notable strong generalization
+phenomenon recently observed in real-world diffusion models.},
+ arxiv_url = {https://arxiv.org/pdf/2410.24060v5.pdf},
+ author = {Xiang Li and Yixiang Dai and Qing Qu},
+ title = {Understanding Generalizability of Diffusion Models Requires Rethinking the Hidden Gaussian Structure},
+ year = {2024}
+}
+
+@article{li_2024_understanding,
+ abstract = {In this work, we study the generalizability of diffusion models by looking
+into the hidden properties of the learned score functions, which are
+essentially a series of deep denoisers trained on various noise levels. We
+observe that as diffusion models transition from memorization to
+generalization, their corresponding nonlinear diffusion denoisers exhibit
+increasing linearity. This discovery leads us to investigate the linear
+counterparts of the nonlinear diffusion models, which are a series of linear
+models trained to match the function mappings of the nonlinear diffusion
+denoisers. Surprisingly, these linear denoisers are approximately the optimal
+denoisers for a multivariate Gaussian distribution characterized by the
+empirical mean and covariance of the training dataset. This finding implies
+that diffusion models have the inductive bias towards capturing and utilizing
+the Gaussian structure (covariance information) of the training dataset for
+data generation. We empirically demonstrate that this inductive bias is a
+unique property of diffusion models in the generalization regime, which becomes
+increasingly evident when the model's capacity is relatively small compared to
+the training dataset size. In the case that the model is highly
+overparameterized, this inductive bias emerges during the initial training
+phases before the model fully memorizes its training data. Our study provides
+crucial insights into understanding the notable strong generalization
+phenomenon recently observed in real-world diffusion models.},
+ arxiv_url = {https://arxiv.org/pdf/2410.24060v5.pdf},
+ author = {Xiang Li and Yixiang Dai and Qing Qu},
+ title = {Understanding Generalizability of Diffusion Models Requires Rethinking the Hidden Gaussian Structure},
+ year = {2024}
+}
+
+@article{sastry_2023_diffaug,
+ abstract = {We introduce DiffAug, a simple and efficient diffusion-based augmentation
+technique to train image classifiers for the crucial yet challenging goal of
+improved classifier robustness. Applying DiffAug to a given example consists of
+one forward-diffusion step followed by one reverse-diffusion step. Using both
+ResNet-50 and Vision Transformer architectures, we comprehensively evaluate
+classifiers trained with DiffAug and demonstrate the surprising effectiveness
+of single-step reverse diffusion in improving robustness to covariate shifts,
+certified adversarial accuracy and out of distribution detection. When we
+combine DiffAug with other augmentations such as AugMix and DeepAugment we
+demonstrate further improved robustness. Finally, building on this approach, we
+also improve classifier-guided diffusion wherein we observe improvements in:
+(i) classifier-generalization, (ii) gradient quality (i.e., improved perceptual
+alignment) and (iii) image generation performance. We thus introduce a
+computationally efficient technique for training with improved robustness that
+does not require any additional data, and effectively complements existing
+augmentation approaches.},
+ arxiv_url = {https://arxiv.org/pdf/2306.09192v2.pdf},
+ author = {Chandramouli Sastry and Sri Harsha Dumpala and Sageev Oore},
+ title = {DiffAug: A Diffuse-and-Denoise Augmentation for Training Robust Classifiers},
+ year = {2023}
+}
+
+@article{xiao_2022_densepure,
+ abstract = {Diffusion models have been recently employed to improve certified robustness
+through the process of denoising. However, the theoretical understanding of why
+diffusion models are able to improve the certified robustness is still lacking,
+preventing from further improvement. In this study, we close this gap by
+analyzing the fundamental properties of diffusion models and establishing the
+conditions under which they can enhance certified robustness. This deeper
+understanding allows us to propose a new method DensePure, designed to improve
+the certified robustness of a pretrained model (i.e. classifier). Given an
+(adversarial) input, DensePure consists of multiple runs of denoising via the
+reverse process of the diffusion model (with different random seeds) to get
+multiple reversed samples, which are then passed through the classifier,
+followed by majority voting of inferred labels to make the final prediction.
+This design of using multiple runs of denoising is informed by our theoretical
+analysis of the conditional distribution of the reversed sample. Specifically,
+when the data density of a clean sample is high, its conditional density under
+the reverse process in a diffusion model is also high; thus sampling from the
+latter conditional distribution can purify the adversarial example and return
+the corresponding clean sample with a high probability. By using the highest
+density point in the conditional distribution as the reversed sample, we
+identify the robust region of a given instance under the diffusion model's
+reverse process. We show that this robust region is a union of multiple convex
+sets, and is potentially much larger than the robust regions identified in
+previous works. In practice, DensePure can approximate the label of the high
+density region in the conditional distribution so that it can enhance certified
+robustness.},
+ arxiv_url = {https://arxiv.org/pdf/2211.00322v1.pdf},
+ author = {Chaowei Xiao and Zhongzhu Chen and Kun Jin and Jiongxiao Wang and Weili Nie and Mingyan Liu and Anima Anandkumar and Bo Li and Dawn Song},
+ title = {DensePure: Understanding Diffusion Models for Adversarial Robustness},
+ year = {2022}
+}
+
+@article{zhong_2024_diffusion,
+ abstract = {Diffusion models have significantly advanced the field of generative
+modeling. However, training a diffusion model is computationally expensive,
+creating a pressing need to adapt off-the-shelf diffusion models for downstream
+generation tasks. Current fine-tuning methods focus on parameter-efficient
+transfer learning but overlook the fundamental transfer characteristics of
+diffusion models. In this paper, we investigate the transferability of
+diffusion models and observe a monotonous chain of forgetting trend of
+transferability along the reverse process. Based on this observation and novel
+theoretical insights, we present Diff-Tuning, a frustratingly simple transfer
+approach that leverages the chain of forgetting tendency. Diff-Tuning
+encourages the fine-tuned model to retain the pre-trained knowledge at the end
+of the denoising chain close to the generated data while discarding the other
+noise side. We conduct comprehensive experiments to evaluate Diff-Tuning,
+including the transfer of pre-trained Diffusion Transformer models to eight
+downstream generations and the adaptation of Stable Diffusion to five control
+conditions with ControlNet. Diff-Tuning achieves a 26% improvement over
+standard fine-tuning and enhances the convergence speed of ControlNet by 24%.
+Notably, parameter-efficient transfer learning techniques for diffusion models
+can also benefit from Diff-Tuning.},
+ arxiv_url = {https://arxiv.org/pdf/2406.00773v2.pdf},
+ author = {Jincheng Zhong and Xingzhuo Guo and Jiaxiang Dong and Mingsheng Long},
+ github_url = {https://github.com/lllyasviel/ControlNet},
+ title = {Diffusion Tuning: Transferring Diffusion Models via Chain of Forgetting},
+ year = {2024}
+}
+
+% ===========================================
+% REFERENCE CANDIDATES
+% Additional reference papers for context
+% ===========================================
+
+@article{ho_2020_denoising,
+ abstract = {We present high quality image synthesis results using diffusion probabilistic
+models, a class of latent variable models inspired by considerations from
+nonequilibrium thermodynamics. Our best results are obtained by training on a
+weighted variational bound designed according to a novel connection between
+diffusion probabilistic models and denoising score matching with Langevin
+dynamics, and our models naturally admit a progressive lossy decompression
+scheme that can be interpreted as a generalization of autoregressive decoding.
+On the unconditional CIFAR10 dataset, we obtain an Inception score of 9.46 and
+a state-of-the-art FID score of 3.17. On 256x256 LSUN, we obtain sample quality
+similar to ProgressiveGAN. Our implementation is available at
+https://github.com/hojonathanho/diffusion},
+ arxiv_url = {https://arxiv.org/pdf/2006.11239v2.pdf},
+ author = {Jonathan Ho and Ajay Jain and Pieter Abbeel},
+ title = {Denoising diffusion probabilistic models},
+ year = {2020}
+}
+
+@article{karras_2022_elucidating,
+ abstract = {We argue that the theory and practice of diffusion-based generative models
+are currently unnecessarily convoluted and seek to remedy the situation by
+presenting a design space that clearly separates the concrete design choices.
+This lets us identify several changes to both the sampling and training
+processes, as well as preconditioning of the score networks. Together, our
+improvements yield new state-of-the-art FID of 1.79 for CIFAR-10 in a
+class-conditional setting and 1.97 in an unconditional setting, with much
+faster sampling (35 network evaluations per image) than prior designs. To
+further demonstrate their modular nature, we show that our design changes
+dramatically improve both the efficiency and quality obtainable with
+pre-trained score networks from previous work, including improving the FID of a
+previously trained ImageNet-64 model from 2.07 to near-SOTA 1.55, and after
+re-training with our proposed improvements to a new SOTA of 1.36.},
+ arxiv_url = {https://arxiv.org/pdf/2206.00364v2.pdf},
+ author = {Tero Karras and Miika Aittala and Timo Aila and Samuli Laine},
+ title = {Elucidating the design space of diffusion-based generative models},
+ year = {2022}
+}
+
+@article{lee_2022_convergence,
+ abstract = {Score-based generative modeling (SGM) is a highly successful approach for
+learning a probability distribution from data and generating further samples.
+We prove the first polynomial convergence guarantees for the core mechanic
+behind SGM: drawing samples from a probability density $p$ given a score
+estimate (an estimate of $\nabla \ln p$) that is accurate in $L^2(p)$. Compared
+to previous works, we do not incur error that grows exponentially in time or
+that suffers from a curse of dimensionality. Our guarantee works for any smooth
+distribution and depends polynomially on its log-Sobolev constant. Using our
+guarantee, we give a theoretical analysis of score-based generative modeling,
+which transforms white-noise input into samples from a learned data
+distribution given score estimates at different noise scales. Our analysis
+gives theoretical grounding to the observation that an annealed procedure is
+required in practice to generate good samples, as our proof depends essentially
+on using annealing to obtain a warm start at each step. Moreover, we show that
+a predictor-corrector algorithm gives better convergence than using either
+portion alone.},
+ arxiv_url = {https://arxiv.org/pdf/2206.06227v2.pdf},
+ author = {Holden Lee and Jianfeng Lu and Yixin Tan},
+ journal = {Advances in Neural Information Processing Systems 35 (2022),
+  22870--22882},
+ title = {Convergence for score-based generative modeling with polynomial complexity},
+ year = {2022}
+}
+
+@article{song_2020_score,
+ abstract = {Creating noise from data is easy; creating data from noise is generative
+modeling. We present a stochastic differential equation (SDE) that smoothly
+transforms a complex data distribution to a known prior distribution by slowly
+injecting noise, and a corresponding reverse-time SDE that transforms the prior
+distribution back into the data distribution by slowly removing the noise.
+Crucially, the reverse-time SDE depends only on the time-dependent gradient
+field (\aka, score) of the perturbed data distribution. By leveraging advances
+in score-based generative modeling, we can accurately estimate these scores
+with neural networks, and use numerical SDE solvers to generate samples. We
+show that this framework encapsulates previous approaches in score-based
+generative modeling and diffusion probabilistic modeling, allowing for new
+sampling procedures and new modeling capabilities. In particular, we introduce
+a predictor-corrector framework to correct errors in the evolution of the
+discretized reverse-time SDE. We also derive an equivalent neural ODE that
+samples from the same distribution as the SDE, but additionally enables exact
+likelihood computation, and improved sampling efficiency. In addition, we
+provide a new way to solve inverse problems with score-based models, as
+demonstrated with experiments on class-conditional generation, image
+inpainting, and colorization. Combined with multiple architectural
+improvements, we achieve record-breaking performance for unconditional image
+generation on CIFAR-10 with an Inception score of 9.89 and FID of 2.20, a
+competitive likelihood of 2.99 bits/dim, and demonstrate high fidelity
+generation of 1024 x 1024 images for the first time from a score-based
+generative model.},
+ arxiv_url = {https://arxiv.org/pdf/2011.13456v2.pdf},
+ author = {Yang Song and Jascha Sohl-Dickstein and Diederik P. Kingma and Abhishek Kumar and Stefano Ermon and Ben Poole},
+ title = {Score-based generative modeling through stochastic differential equations},
+ year = {2020}
+}
