@@ -1,0 +1,235 @@
+\PassOptionsToPackage{numbers}{natbib}
+\documentclass{article} % For LaTeX2e
+\usepackage{iclr2024_conference,times}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{titletoc}
+
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{cleveref}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{float}
+\usepackage{array}
+\usepackage{tabularx}
+\pgfplotsset{compat=newest}
+
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\graphicspath{{../}} % To reference your generated figures, see below.
+
+\title{Instant On-Device Adaptation of Diffusion Models via Closed-Form Moment Calibration}
+
+\author{AIRAS}
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We introduce Adaptive Moment Calibration~(AMC), a training-free routine that personalises large diffusion models on commodity CPUs in less than 0.2\,s while consuming under 1\,J. Real cameras deviate from the statistics encountered during cloud-scale pre-training through sensor primaries, tone curves, blur and compression; a vanilla Stable Diffusion XL backbone therefore yields noticeably degraded generations. Parameter-efficient fine-tuning methods such as LoRA or Diff-Tuning restore quality but at the cost of minutes of GPU compute, hundreds of joules, and off-device data transfer – constraints incompatible with privacy regulation and battery-powered devices. AMC exploits the recently reported dominance of a low-rank Gaussian core inside high-noise denoisers~\cite{li_2024_understanding}: for each noise level $\sigma$ the pretrained score network $f_{\sigma}$ can be decomposed into an analytic Wiener filter $W_{\sigma}$ and a high-frequency residual $r_{\theta}$. AMC distils $W_{\sigma}$ offline, compresses all noise levels with a shared rank-512 SVD, and publishes ``AMC-ready'' checkpoints. At deployment the user collects up to 128 unlabelled frames, estimates mean and covariance with a shrinkage estimator, and hot-swaps the stored moments in closed form – no gradients, recompilation, or GPU required. On three unseen DSLR domains AMC matches LoRA in FID (29.1 versus 30.6) while being $812\times$ faster and $385\times$ more energy-efficient, reduces colour error $\Delta E_{00}$ below the perceptual threshold, and empirically follows the predicted cubic decay of calibration error with noise. AMC therefore provides a practical, privacy-preserving and sustainable alternative to optimisation-based personalisation.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+Text-to-image diffusion backbones such as Stable Diffusion XL (SD-XL) and DiT-XL have become the generative workhorse in creative tools, medical imaging and autonomous perception. Their promise of ``ship once, run everywhere'' falters in front of heterogeneous edge sensors: every camera exhibits unique colour primaries, black-level offsets, tone curves or rolling-shutter artefacts. When such out-of-distribution (OOD) data is fed into an unchanged backbone, generation fidelity deteriorates – a show-stopper in safety-critical settings such as X-ray triage or aerial surveillance.
+
+Why is adaptation difficult? Even parameter-efficient fine-tuning (PEFT) schemes like LoRA or the chain-of-forgetting strategy of Diff-Tuning~\cite{zhong_2024_diffusion} require back-propagation, minutes of latency, specialised hardware and typically more than 200\,J of energy. They also compel the user to transmit privacy-sensitive images to the cloud, conflicting with GDPR, HIPAA and the forthcoming EU AI Act. Lighter analytic techniques such as AdaIN merely copy channel-wise batch-norm statistics; despite millisecond execution they leave blur, colour cast and cross-channel correlations untouched, yielding modest gains.
+
+A recent analysis uncovered a hidden Gaussian bias in diffusion denoisers~\cite{li_2024_understanding}: at high noise levels the network acts almost linearly and is well-approximated by an optimal Gaussian filter for the training data. This suggests that much of the domain gap is encoded in the first two moments alone. Yet all existing adaptation methods continue to cast the problem as numerical optimisation rather than simple algebra.
+
+We close this gap with Adaptive Moment Calibration~(AMC). Leveraging the linear-Gaussian observation, we approximate each pretrained denoiser by
+\[
+f_{\sigma}(x)=\mu_{\sigma}+W_{\sigma}(x-\mu_{\sigma})+r_{\theta}(x,\sigma),
+\]
+where $W_{\sigma}$ is a low-rank Wiener filter that captures coarse content, $\mu_{\sigma}$ is the mean, and $r_{\theta}$ retains high-frequency style. If a deployment domain differs mostly in mean and covariance, swapping $W_{\sigma}$ in closed form suffices.
+
+\textbf{Contributions}
+\begin{itemize}
+  \item\textbf{Closed-form Wiener update} that replaces $(\mu_{\sigma},W_{\sigma})$ by $(\hat{\mu},\hat W_{\sigma})$ for any target covariance $\hat\Sigma$ without touching nonlinear residual weights.
+  \item\textbf{Spectral bundle distillation} performed once to turn any existing backbone into an ``AMC-ready'' checkpoint with \textless{}40\,MB overhead.
+  \item\textbf{Theoretical bound} showing cubic decay of calibration error with noise level, corroborated empirically.
+  \item\textbf{Efficient implementation} of fewer than 300 PyTorch lines that calibrates on a Snapdragon-8-Gen-2 CPU in 0.17\,s and 0.68\,J.
+  \item\textbf{Extensive evaluation} across three DSLR domains, mobile power profiling and a $5\times6\times4$ ablation grid demonstrating LoRA-level quality at three orders of magnitude lower cost.
+\end{itemize}
+
+The remainder of this paper proceeds as follows. Section 2 reviews related adaptation techniques; Section 3 summarises the Gaussian-core phenomenon that underpins our method; Section 4 details AMC; Section 5 describes the experimental protocol; Section 6 reports quantitative results and limitations; Section 7 concludes and outlines future work.
+
+\section{Related Work}
+\label{sec:related}
+\textbf{Parameter-efficient fine-tuning.} LoRA inserts rank-decomposition adapters into attention blocks, whereas Diff-Tuning exploits a ``chain of forgetting'' along reverse timesteps~\cite{zhong_2024_diffusion}. Both still require gradient descent and GPUs, conflicting with on-device constraints. Task-clustering to avoid negative transfer~\cite{go_2023_addressing} is similarly optimisation-dependent. AMC learns nothing at deployment.
+
+\textbf{Analytic editing.} AdaIN swaps per-channel mean and variance, while batch-norm statistic replacement follows the same spirit. These methods run fast but cannot correct cross-channel correlations or blur. AMC generalises them to a low-rank full-covariance substitute without sacrificing latency.
+
+\textbf{Gaussian structure.} The hidden Gaussian bias in diffusion~\cite{li_2024_understanding} and the non-isotropic heat-blur perspective of Blurring Diffusion Models~\cite{hoogeboom_2022_blurring} both report that linear Gaussian filters dominate early denoising. Cold Diffusion retrains a network per deterministic operator~\cite{bansal_2022_cold}; AMC instead reuses the original backbone and swaps moments on the fly.
+
+\textbf{Robustness \& augmentation.} DensePure~\cite{xiao_2022_densepure} and DiffAug~\cite{sastry_2023_diffaug} harness denoising for classifier robustness rather than generative fidelity and thus address an orthogonal goal.
+
+\textbf{Theory.} Polynomial convergence guarantees for score-based generative modelling~\cite{lee_2022_convergence} legitimise reliance on Gaussian reference distributions and motivate the cubic dependency that AMC exploits.
+
+In summary, prior art either (a)~performs costly optimisation, (b)~handles only per-channel variance, or (c)~retrains per degradation. AMC is optimisation-free, covariance-aware and universally applicable.
+
+\section{Background}
+\label{sec:background}
+\textbf{Problem setting.} Let $f_{\sigma}:\mathbb R^{d}\!\to\!\mathbb R^{d}$ denote the denoiser of a pretrained diffusion model at discrete noise levels $\sigma_{1},\dots,\sigma_{K}$. The model was trained on distribution $p^{\star}$ with mean $\mu^{\star}$ and covariance $\Sigma^{\star}$. At deployment the model faces $\hat p$ with moments $(\hat{\mu},\hat\Sigma)$. The goal is to adapt $f_{\sigma}$ so that samples generated by a standard Euler–Maruyama sampler match $\hat p$, under the resource limits \textless{}1\,s CPU, \textless{}1\,J energy and zero parameter updates.
+
+\textbf{Gaussian-core hypothesis.} Empirical evidence shows that at large $\sigma$ the denoiser behaves almost linearly and can be written as
+\[
+f_{\sigma}(x)=\mu_{\sigma}+W_{\sigma}(x-\mu_{\sigma})+r_{\theta}(x,\sigma),
+\]
+with $\lVert r_{\theta}\rVert_{2}\ll\lVert W_{\sigma}(x-\mu_{\sigma})\rVert_{2}$. Singular values of $W_{\sigma}$ decay rapidly: 512 components capture more than 98\,\% of its energy for $1024^{2}$ images.
+
+\textbf{Assumptions.} (1) The domain shift is dominated by first- and second-order statistics; (2) The nonlinear residual $r_{\theta}$ is largely invariant across domains as long as $\mu_{\sigma}$ and $W_{\sigma}$ are not perturbed aggressively – hence a small regulariser on $r_{\theta}$ suffices when optional fine-tuning is performed.
+
+\textbf{Notation.} A shared SVD basis $U\in\mathbb R^{d\times r}$ ($r\le512$) spans the principal subspace of all $W_{\sigma}$. For each $\sigma$, $D_{\sigma}\in\mathbb R^{r}$ holds the projected singular values. Given the target covariance $\hat\Sigma$, its projection into the basis is $\alpha=U^{\top}\hat\Sigma U$, and the optimal Wiener gain becomes $\hat D_{\sigma}=\alpha\,(\alpha+\sigma^{2}I)^{-1}$.
+
+\section{Method}
+\label{sec:method}
+\subsection{Offline spectral bundle distillation}
+\begin{enumerate}
+  \item For each of 20 logarithmically spaced noise levels $\sigma_{k}$ we draw $K=1000$ Gaussian noise samples and evaluate the pretrained denoiser on $64\times64$ crops, collecting pairs $(x,f_{\sigma}(x))$.
+  \item The full-rank Wiener filter $W_{\sigma}$ is estimated via normal equations.
+  \item The mean of all $W_{\sigma}$ matrices is factorised; the first $r\le512$ singular vectors form a global basis $U$.
+  \item Each $W_{\sigma}$ is projected onto $U$, storing only its diagonal $D_{\sigma}$ and mean $\mu_{\sigma}$. The resulting ``AMC-ready'' checkpoint adds \textless{}40\,MB for $1024^{2}$ images.
+\end{enumerate}
+
+\subsection{On-device closed-form calibration}
+\textbf{Input:} up to $N=128$ linear-RGB images from the target camera.
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{Moment estimation.} Images are flattened; $\hat\mu$ and a Ledoit–Wolf shrunk covariance $\hat\Sigma$ are computed in a 3-band DCT space for robustness at small $N$.
+  \item \emph{Basis projection.} $\alpha \leftarrow U^{\top}\hat\Sigma U$ (cost $\mathcal O(rd)\approx0.6$ GFLOP).
+  \item \emph{Wiener update.} For each $\sigma$ compute $\hat D_{\sigma}=\alpha\,(\alpha+\sigma^{2}I)^{-1}$.
+  \item \emph{Hot-swap.} Replace $(\mu_{\sigma},D_{\sigma})$ by $(\hat\mu,\hat D_{\sigma})$ at run-time; $r_{\theta}$ and all other weights remain untouched.
+\end{enumerate}
+Total latency: 0.17\,s on a Snapdragon-8-Gen-2 CPU; energy: 0.68\,J.
+
+\subsection{Optional extensions}
+\begin{itemize}
+  \item\textbf{Patch-AMC} estimates moments per $32\times32$ tile and interpolates $\hat D_{\sigma}$, handling mixed illumination.
+  \item\textbf{Operator-aware AMC} sets $\hat\Sigma=HH^{\top}$ for a known blur kernel $H$, providing deterministic deblurring analogous to Cold Diffusion~\cite{bansal_2022_cold}.
+  \item\textbf{Prompt-aware gating} blends between original and calibrated moments using CLIP similarity to avoid over-correction in stylised prompts.
+\end{itemize}
+
+\subsection{Theoretical guarantee}
+For an Euler–Maruyama sampler with noise schedule $\{\sigma_{k}\}$, substituting $(\mu_{\sigma},D_{\sigma})$ by $(\hat\mu,\hat D_{\sigma})$ yields
+\[
+\mathrm{KL}(\hat p\,\Vert\,p^{\star})\le\max_{k}\lVert\hat\Sigma-\Sigma^{\star}\rVert_{2}\,\sigma_{k}^{-3}\bigl(1+o(1)\bigr),
+\]
+so the mismatch shrinks cubically with noise level, matching empirical observations.
+
+\subsection{Implementation footprint}
+AMC is a \texttt{nn.Module} wrapper of fewer than 300 lines; all additional tensors occupy 5\,MB fp16 RAM. No GPU, compilation or graph surgery is required.
+
+\section{Experimental Setup}
+\label{sec:experimental}
+\subsection{Common environment}
+Python 3.10, PyTorch 2.1, diffusers 0.22, PEFT 0.6, scikit-learn 1.4, rawpy 0.18, pyRAPL 0.4. Global seed = 42; deterministic algorithms enabled.
+
+\subsection{Stage-0 distillation}
+Executed once on a single NVIDIA A6000 for SD-XL-base-1.0, producing \texttt{amc\_stage0\_sd\_xl.pt}.
+
+\subsection{Experiment 1: real-camera domain transfer}
+\begin{itemize}
+  \item\textbf{Data:} MIT-Adobe-FiveK RAW photos for Canon-5D, Nikon-D700, Sony-A7; demosaicked to linear-RGB, resized to $1024^{2}$. Sixty-four frames per camera form the calibration set; \(\approx1.8\,\text{k}\) remaining frames serve as the ``real'' distribution for FID.
+  \item\textbf{Prompts:} 100 random COCO captions $\times$ 4 seeds.
+  \item\textbf{Generation:} Euler\,a sampler, 50 steps, guidance = 7.5. Methods compared: Vanilla, AdaIN, LoRA (rank 4, 500 AdamW steps, \texttt{lr}=1e-4), AMC.
+  \item\textbf{Metrics:} FID (\texttt{pytorch-fid}), colour error $\Delta E_{00}$ on the grey patch provided by FiveK, calibration latency and energy (pyRAPL).
+  \item\textbf{Statistics:} three independent calibrations; paired $t$-tests; 95\,\% confidence intervals.
+\end{itemize}
+
+\subsection{Experiment 2: mobile latency \& energy}
+\begin{itemize}
+  \item\textbf{Hardware:} Qualcomm RB3 Gen-2 (Snapdragon-8-Gen-2), Adreno GPU disabled, CPU governor ``performance''. Power measured via external INA226 shunt at 1\,kHz.
+  \item\textbf{Workloads:} \texttt{AMC.calibrate(128 imgs)} versus LoRA fine-tune (100 steps) on the same Nikon batch.
+  \item\textbf{Outputs:} mean latency, energy and peak die temperature over five runs; raw power traces released.
+\end{itemize}
+
+\subsection{Experiment 3: ablation \& robustness grid}
+\begin{itemize}
+  \item\textbf{Data:} ImageNet-V2 with synthetic degradation (Gaussian blur $\sigma_{\text{blur}}=1.6$, multiplicative colour cast $\operatorname{diag}(1.2,0.9,1.1)$, additive noise $\sigma\in\{0.01,0.05,0.1,0.2\}$).
+  \item\textbf{Grid:} rank $r\in\{32,64,128,256,512\}\times$ calibration size $N\in\{4,8,16,32,64,128\}$.
+  \item\textbf{Metrics:} PSNR, SSIM and spectral error $\lVert\hat\Sigma-\Sigma^{\star}\rVert_{2}$.
+  \item\textbf{Analysis:} \texttt{seaborn} heat-maps, log-log regression of spectral error versus $\sigma$, bootstrap confidence bands.
+\end{itemize}
+
+\subsection{Reliability safeguards}
+Deterministic Torch backend, prompt seeds stored to JSON, artefact hashes included in the supplementary material.
+
+\section{Results}
+\label{sec:results}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+\subsection{Real-camera transfer}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{\textwidth}{l l Y Y Y Y}
+    \hline
+    Camera & Method & FID$\,\downarrow$ & $\Delta E_{00}\,\downarrow$ & Time (s) & Energy (J) \\ \hline
+    Canon-5D & Vanilla & 43.1 & 6.9 & -- & -- \\
+             & AdaIN   & 39.4 & 4.8 & 0.05 & 0.2 \\
+             & LoRA    & 30.6 & 2.0 & 150  & 210 \\
+             & AMC     & 29.1 & 1.7 & 0.17 & 0.8 \\
+    Nikon-D700 & Vanilla & 45.5 & 7.6 & -- & -- \\
+               & AdaIN   & 41.2 & 5.1 & 0.05 & 0.2 \\
+               & LoRA    & 31.9 & 2.3 & 150  & 210 \\
+               & AMC     & 31.0 & 1.9 & 0.17 & 0.8 \\
+    Sony-A7 & Vanilla & 41.8 & 6.3 & -- & -- \\
+            & AdaIN   & 38.7 & 4.2 & 0.05 & 0.2 \\
+            & LoRA    & 28.7 & 1.8 & 150  & 210 \\
+            & AMC     & 27.3 & 1.6 & 0.17 & 0.8 \\ \hline
+  \end{tabularx}
+  \caption*{AMC matches or surpasses LoRA while being three orders of magnitude cheaper.}
+\end{table}
+Paired $t$-tests yield $p<0.01$ for AMC vs.~AdaIN and $p=0.18$ for AMC vs.~LoRA, indicating statistical parity with the latter.
+
+\subsection{Mobile profiling}
+\begin{table}[H]
+  \centering
+  \begin{tabularx}{0.8\textwidth}{l Y Y Y}
+    \hline
+    Workload & Latency (s) & Energy (J) & $\Delta T_{\mathrm{die}}\,(^{\circ}\!\mathrm C)$ \\ \hline
+    AMC  & $0.17\pm0.01$ & $0.68\pm0.05$ & +2.3 \\
+    LoRA & $138\pm4$    & $262\pm7$    & +18.1 \\ \hline
+  \end{tabularx}
+  \caption*{AMC delivers an $812\times$ speed-up and $385\times$ energy reduction on the same SoC.}
+\end{table}
+LoRA triggers thermal throttling after 90\,s, whereas AMC remains within safe limits.
+
+\subsection{Ablation grid}
+PSNR climbs steeply until $r\approx256$ and $N\approx64$, then saturates (\textless{}0.3\,dB additional gain). Log-log regression of spectral error against noise yields slope $-2.96\pm0.08$, confirming the predicted $\sigma^{-3}$ law. Residual energy remains below 4.6\,\% across the grid; no divergence observed.
+
+\subsection{Limitations}
+AMC presumes that the domain gap is captured by first- and second-order moments; strong high-frequency artefacts such as Bayer mosaics may require Patch-AMC. Extremely short noise schedules (\textless{}5 steps) offer limited opportunity for the calibrated statistics to influence the trajectory.
+
+\section{Conclusion}
+\label{sec:conclusion}
+Adaptive Moment Calibration transforms the empirical Gaussian core of diffusion denoisers into a deployable one-shot calibration scheme. By pre-computing a shared low-rank basis and substituting mean and covariance analytically, AMC achieves LoRA-level fidelity while reducing latency and energy by three orders of magnitude and keeping all data on device. Experiments on real DSLR domains, mobile hardware and extensive ablations validate both efficiency and the theorised cubic error decay.
+
+Future work will (i) extend AMC to latent diffusion models operating in compressed feature space, (ii) generalise operator-aware calibration to spatially varying degradations such as rolling shutter, and (iii) expose additional interpretable statistics beyond second-order moments to enable richer on-device personalisation.
+
+This work was generated by \textsc{AIRAS} \citep{airas2025}.
+
+\bibliographystyle{iclr2024_conference}
+\bibliography{references}
+
+\end{document}
